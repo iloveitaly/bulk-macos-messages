@@ -34,6 +34,7 @@ osascript send.applescript ./message.txt ./recipients.txt
 
 ## Notes
 
+* You will need to grant automation permissions to the Messages app for the AppleScript to work.
 * If you want to send a group of messages but don't have the need for triggering a send remotely, or if you're not going to be using the script regularly, you can simply pass environment variables directly into the AppleScript by running `recipients="12345678901 11098765432" message="message here" osascript send.scpt`. This sets the variables for `recipients` and `message` directly, as opposed to reading them in from the `sms.txt` file. `send.sh` is not needed if you're using this method.
 * This AppleScript will only send to recipients with whom you have an existing conversation in Messages.
 * SMS has a limit of 160 characters, whereas Messages can handle ~20k characters. This script does not enforce character limits.
