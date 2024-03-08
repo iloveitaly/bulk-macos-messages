@@ -22,16 +22,22 @@ on run argv
 
 	log recipients
 
-	tell application "Messages"
-		-- Get the Messages service of type iMessage
-		set targetService to 1st account whose service type = iMessage
+	repeat with recipient in recipients
+		try
+			tell application "Messages"
+				-- Get the Messages service of type iMessage
+				set targetService to 1st account whose service type = iMessage
 
-		-- For each 'recipient' in the list of recipients, set the 'buddy' item
-		-- then send the text in the 'message' variable to that recipient
-		repeat with recipient in recipients
-			set recipient to participant recipient of targetService
-			send message to recipient
-			delay 3
-		end repeat
-	end tell
+				-- For each 'recipient' in the list of recipients, set the 'buddy' item
+				-- then send the text in the 'message' variable to that recipient
+				set recipient to participant recipient of targetService
+				send message to recipient
+
+				-- Delay for 6 seconds to avoid weird imessage glitches
+				delay 6
+			end tell
+		on error
+				log "Error sending message to " & recipient
+		end try
+	end repeat
 end run
